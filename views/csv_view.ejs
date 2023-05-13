@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      //searching
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("tbody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+      //sorting
+      $(".sort").click(function() {
+        var column = $(this).attr('id');
+        var order = $(this).attr('data-order');
+        
+        // change sort order
+        if (order === 'desc') {
+          $(this).attr('data-order', 'asc');
+        } else {
+          $(this).attr('data-order', 'desc');
+        }
+        
+        // sort the table
+        sortTable(column, order);
+      });
+      
+      function sortTable(column, order) {
+        var rows = $("tbody tr").get();
+        
+        rows.sort(function(a, b) {
+          var A = $(a).children("td").eq(column).text().toUpperCase();
+          var B = $(b).children("td").eq(column).text().toUpperCase();
+          
+          if (A < B) {
+            return order === 'asc' ? -1 : 1;
+          } else if (A > B) {
+            return order === 'asc' ? 1 : -1;
+          }
+          return 0;
+        });
+        
+        $.each(rows, function(index, row) {
+          $("tbody").append(row);
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12">
+        <h1>CSV File: <%= fileData.filename %></h1>
+        <input type="text" id="search" placeholder="Search...">
+        <table class="table">
+          <thead>
+            <tr>
+              <% fileData.header_row.forEach(function(cell, index) { %>
+              <th><%= cell %><button class="sort" id="<%= index %>" data-order="desc">↓</button></th>
+              <% }); %>
+            </tr>
+          </thead>
+          <tbody>
+            <% fileData.data_rows.forEach(function(row) { %>
+            <tr>
+              <% Object.values(row).forEach(function(cell) { %>
+              <td><%= cell %></td>
+              <% }); %>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+

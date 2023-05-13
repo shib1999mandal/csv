@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CSV Upload</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <!-- home.ejs -->
+
+<h1>Uploaded Files</h1>
+
+<table>
+    <thead>
+      <tr>
+        <th>Filename</th>
+        <th> </th>
+        <th> </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% files.forEach(function(file) { %>
+        <tr>
+          <td><%= file.filename %></td>
+          <td> </td>
+          <td> </td>
+          <td>
+            <a href="/csv/<%= file._id %>">View</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  
+
+
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">CSV Upload</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="csvFile">Select a CSV file to upload:</label>
+                        <input type="file" class="form-control-file" id="csvFile" name="csv" accept=".csv">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
