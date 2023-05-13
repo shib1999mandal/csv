@@ -4,10 +4,10 @@
   "description": "csv uploader ",
   "main": "index.js",
   "scripts": {
-    "start": " nodemon index.js",
+    "start": " node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "prakash singh",
+  "author": "shibaram mandal",
   "license": "ISC",
   "dependencies": {
     "csv-parser": "^3.0.0",
